@@ -1,4 +1,8 @@
 import { ReactNode } from "react";
+import Header from "../components/header-component/header-component";
+import FooterComponent from "../components/footer-component/footer-component";
+import "./globals.scss";
+
 interface LayoutProps {
   children: ReactNode;
 }
@@ -7,9 +11,13 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <body>
-        <header>[placeholder for header]</header>
+        <header>
+          <Header />
+        </header>
         <main>{children}</main>
-        <footer>[placeholder for footer]</footer>
+        <footer>
+          <FooterComponent />
+        </footer>
       </body>
     </html>
   );
