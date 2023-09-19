@@ -10,6 +10,10 @@ export default function Sandbox() {
           <Link href={"/"}>Home</Link>
         </li>
         <li>
+          {" "}
+          <Link href={"/sandbox/nested-route"}>Nested route (Sandbox nested)</Link>
+        </li>
+        <li>
           <Link href={"/reviews"}>Reviews</Link>
           <ul>
             <li>
