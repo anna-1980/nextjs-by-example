@@ -1,3 +1,7 @@
-body {
-    font-family: sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// custom components:
+@import "../components/header-component/header-component.module.scss"
+
