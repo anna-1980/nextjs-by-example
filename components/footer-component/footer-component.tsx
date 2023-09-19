@@ -1,7 +1,6 @@
 export default function FooterComponent() {
   return (
-    <>
-    <hr />
+    <div className="border-t py-3 text-center text-s">
       <p>
         Game data and images courtsey of &nbsp;
         <a href="https://rawg.io/apidocs" target="_blank">
@@ -9,6 +8,6 @@ export default function FooterComponent() {
         </a>
         .
       </p>
-    </>
+    </div>
   );
 }

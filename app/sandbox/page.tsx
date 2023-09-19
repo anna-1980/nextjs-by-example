@@ -4,6 +4,10 @@ export default function Sandbox() {
   return (
     <>
       <h2>Sandbox</h2>
+      <h3 className="text-3xl font-bold underline">
+        From Tailwind. Hello world!
+      </h3>
+
       <ul>
         <li>
           <Link href={"/"}>Home</Link>

@@ -5,7 +5,7 @@ export default function Header(): JSX.Element {
   return (
     <>
       <nav>
-        <ul className={styles.list}>
+        <ul className={`flex gap-2 ${styles.list}`}>
           <li className={styles["list__item"]}>
             <Link href={"/"}>Home</Link>
           </li>
