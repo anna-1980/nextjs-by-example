@@ -6,12 +6,12 @@ export default function Sandbox() {
       <h2>Sandbox</h2>
       <ul>
         <li>
-          {" "}
           <Link href={"/"}>Home</Link>
         </li>
         <li>
-          {" "}
-          <Link href={"/sandbox/nested-route"}>Nested route (Sandbox nested)</Link>
+          <Link href={"/sandbox/nested-route"}>
+            Nested route (Sandbox nested)
+          </Link>
         </li>
         <li>
           <Link href={"/reviews"}>Reviews</Link>
