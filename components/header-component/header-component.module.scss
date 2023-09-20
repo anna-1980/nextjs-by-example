@@ -1,24 +1,2 @@
- 
-
-.list {
-    list-style-type: none; 
-    background-color: rgb(7, 40, 51);
-    padding: 0.5rem;
- &__item{
-   @apply my-2  ;
-    a{
-       @apply  md:px-5 rounded-md text-sm md:text-base border-2 ;
-        text-decoration: none;
-        color: aliceblue;
-  
-     }
-    a:hover{
-        color: rgb(7, 40, 51);
-        background-color: aliceblue;
-     }
-     
-    }
- }
-
 
  

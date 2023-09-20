@@ -10,7 +10,7 @@ interface LayoutProps {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body className="flex flex-col min-h-screen px-4 py-4">
+      <body className="bg-orange-50 flex flex-col min-h-screen px-4 py-4">
         <header>
           <Header />
         </header>
