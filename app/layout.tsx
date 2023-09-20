@@ -10,11 +10,11 @@ interface LayoutProps {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-orange-50 flex flex-col min-h-screen px-4 py-4">
         <header>
           <Header />
         </header>
-        <main>{children}</main>
+        <main  className="py-3 grow">{children}</main>
         <footer>
           <FooterComponent />
         </footer>
