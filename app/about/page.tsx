@@ -1,5 +1,5 @@
 import Link from "next/link";
-import HeadingComponent from "../../components/heading-component/heading-component";
+import HeadingComponent from "@/components/heading-component/heading-component";
 
 export default function AboutPage() {
   return (

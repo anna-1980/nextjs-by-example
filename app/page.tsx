@@ -1,4 +1,4 @@
-import HeadingComponent from "../components/heading-component/heading-component";
+import HeadingComponent from "@/components/heading-component/heading-component";
 
 export default function Home(): JSX.Element {
   return (

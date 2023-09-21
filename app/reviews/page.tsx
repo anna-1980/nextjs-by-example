@@ -1,5 +1,5 @@
 import Link from "next/link";
-import HeadingComponent from "../../components/heading-component/heading-component";
+import HeadingComponent from "@/components/heading-component/heading-component";
 
 export default function Reviews() {
   return (
@@ -9,7 +9,7 @@ export default function Reviews() {
       <ul>
         <li>
           <Link href={"/reviews/stardew-valley"}>Star Dew Valley</Link>
-        </li> 
+        </li>
         <li>
           <Link href={"/reviews/hollow-knights"}>Hollow Knights</Link>
         </li>
