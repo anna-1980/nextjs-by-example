@@ -11,6 +11,10 @@ export interface Review {
 }
 
 
+export async function getFeaturedReview () {
+    const reviews = await getReviews();
+    return reviews[0];
+};
 
 export async function getReview(slug: string): Promise<Review> {
   const textContentMD = await readFile(`./content/reviews/${slug}.md`, "utf-8");
@@ -33,6 +37,7 @@ export async function getReviews(): Promise<Review[]> {
     const review = await getReview(slug);
     reviews.push(review);
   }
+  reviews.sort((a, b) => b.date.localeCompare(a.date))
   return reviews;
 }
 

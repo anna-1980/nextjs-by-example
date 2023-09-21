@@ -1,6 +1,6 @@
 ---
 title: "BUBU!"
-date: "2023-05-06"
+date: "2023-05-02"
 image: "/images/hellblade.jpg"
 ---
 
