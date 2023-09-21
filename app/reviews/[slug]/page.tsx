@@ -2,9 +2,16 @@ import Link from "next/link";
 import HeadingComponent from "@/components/heading-component/heading-component";
 import { getReview } from "@/lib/reviews";
 
+export interface ReviewPageProps {
+ 
+  params: {
+    slug: string;
+  };
+}
 
-export default async function StarDewValleyPage() {
-  const { title, date, image, body } = await getReview("stardew-valley");
+export default async function ReviewPage({params: {slug}}: ReviewPageProps) {
+  const { title, date, image, body } = await getReview(slug);
+  // console.log(params)
   return (
     <div>
       <HeadingComponent text={title} />
