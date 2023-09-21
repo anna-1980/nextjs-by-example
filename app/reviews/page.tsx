@@ -17,7 +17,7 @@ export default function Reviews() {
               height="80"
               className=" "
             ></img>
-            <h2 className="py-1 text-center">Star Dew Valley</h2>
+            <h2 className="py-1 text-center font-semibold">Star Dew Valley</h2>
           </Link>
         </li>
         <li className="bg-white border w-80 shadow rounded-lg overflow-hidden hover:shadow-xl">
@@ -30,7 +30,7 @@ export default function Reviews() {
               height="80"
               className=" "
             ></img>{" "}
-            <h2 className="py-1 text-center">Hollow Knights</h2>
+            <h2 className="py-1 text-center font-semibold">Hollow Knights</h2>
           </Link>
         </li>
       </ul>

@@ -4,6 +4,8 @@
     list-style-type: none; 
     background-color: #082f49;
     padding: 0.5rem;
+    font-family:  var(--font-orbitron), sans-serif;
+    font-weight: 600;
  &__item{
    @apply my-2  ;
     a{
