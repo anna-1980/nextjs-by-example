@@ -1,6 +1,6 @@
 export default function FooterComponent() {
   return (
-    <footer>
+    <footer className="text-slate-500">
       <div className="border-t py-3 text-center text-s">
         <p>
           Game data and images courtsey of &nbsp;
