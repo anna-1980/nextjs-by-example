@@ -10,6 +10,8 @@ export interface Review {
   slug: string;
 }
 
+
+
 export async function getReview(slug: string): Promise<Review> {
   const textContentMD = await readFile(`./content/reviews/${slug}.md`, "utf-8");
   const {
@@ -18,20 +20,27 @@ export async function getReview(slug: string): Promise<Review> {
   } = matter(textContentMD);
   const body = marked(content);
 
-  return { slug, title, date, image, body, };
+  return { slug, title, date, image, body };
 }
 
 export async function getReviews(): Promise<Review[]> {
   const files = await readdir("./content/reviews");
   //filter and  strip put the file extension
-  const slugs = files
-    .filter((file) => file.endsWith(".md"))
-    .map((file) => file.slice(0, -".md".length));
-  console.log(slugs);
+  const slugs =  await getSlugs();
+  console.log("[SLUGS", slugs);
   const reviews: Review[] = [];
   for (const slug of slugs) {
     const review = await getReview(slug);
     reviews.push(review);
   }
   return reviews;
+}
+
+export async function getSlugs(): Promise<string[]> {
+  const files = await readdir("./content/reviews");
+  //filter and  strip put the file extension
+  const slugs = files
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => file.slice(0, -".md".length));
+  return slugs;
 }
