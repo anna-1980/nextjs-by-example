@@ -1,9 +1,10 @@
 import Link from "next/link";
+import HeadingComponent from "../../components/heading-component/heading-component";
 
 export default function AboutPage() {
   return (
     <>
-      <h1>About</h1>
+      <HeadingComponent text="About" />
       <p>
         <Link href={"/"}>Home</Link>
       </p>

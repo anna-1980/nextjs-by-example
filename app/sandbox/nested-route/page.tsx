@@ -1,7 +1,10 @@
+import HeadingComponent from "../../../components/heading-component/heading-component";
+
 export default function NesterRoute() {
   return (
     <>
-      <h1>Nested Route</h1>
+    <HeadingComponent text="Nested Route"/> 
+       
     </>
   );
 }
