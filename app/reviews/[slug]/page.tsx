@@ -1,6 +1,7 @@
 import Link from "next/link";
 import HeadingComponent from "@/components/heading-component/heading-component";
-import { getReview, getSlugs } from "@/lib/reviews";
+import { getReview, getSlugs } from "@/lib/reviews";import Buttons from "@/components/buttons/buttons";
+ 
 
 export interface ReviewPageProps {
   params: {
@@ -14,7 +15,7 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params:{slug} }: ReviewPageProps) {
+export async function generateMetadata({ params: { slug } }: ReviewPageProps) {
   const { title } = await getReview(slug);
   return {
     title: title,
@@ -26,10 +27,23 @@ export default async function ReviewPage({
 }: ReviewPageProps) {
   const { title, date, image, body } = await getReview(slug);
 
+  let clicked
+ const handleClick = () => {
+  navigator.clipboard.writeText(window.location.href);
+  // console.log("clicked")
+  clicked(true);
+  setTimeout(() => {
+  clicked(false) ;
+  }, 2000);
+};
+
   return (
     <div>
       <HeadingComponent text={title} />
-      <p className="italic pb-2">{date}</p>
+      <div className="flex gap-3 items-baseline">
+        <p className="italic pb-2 mr-4">{date}</p>
+        <Buttons />
+      </div>
       {image ? (
         <img
           src={image}
@@ -47,7 +61,6 @@ export default async function ReviewPage({
       ></article>
       {!date ? (
         <Link href={"/reviews"}>Reviews</Link>
-       
       ) : (
         <Link href={"/"}>Home</Link>
       )}
