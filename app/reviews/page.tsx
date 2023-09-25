@@ -2,12 +2,13 @@ import Link from "next/link";
 import HeadingComponent from "@/components/heading-component/heading-component";
 import { getReviews } from "@/lib/reviews";
 
-
+export const metadata = {
+  title: "Reviews",
+};
 
 export default async function Reviews() {
   const reviews = await getReviews();
 
-  console.log("[Reviews]", reviews);
   return (
     <>
       <HeadingComponent text="Reviews" />

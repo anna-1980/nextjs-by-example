@@ -21,12 +21,13 @@ export async function getReview(slug: string): Promise<Review> {
     const {
       data: { title, date, image },
       content,
+      
     } = matter(textContentMD);
     const body = marked(content);
     return { slug, title, date, image, body };
   } catch (error) {
     console.log("ERROR", error)
-    return { slug, title:` No review of "${slug}" title` , date:"no date", image:"no image", body:"No review exists" };
+    return { slug, title:` No review of "${slug}" title` , date:null, image:null, body:"No review exists" };
   }
 }
 
@@ -34,7 +35,6 @@ export async function getReviews(): Promise<Review[]> {
   const files = await readdir("./content/reviews");
   //filter and  strip put the file extension
   const slugs = await getSlugs();
-  console.log("[SLUGS", slugs);
   const reviews: Review[] = [];
   for (const slug of slugs) {
     const review = await getReview(slug);
