@@ -1,5 +1,9 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: "Sandbox ",
+};
+
 export default function Sandbox() {
   return (
     <>
