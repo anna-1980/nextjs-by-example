@@ -7,11 +7,11 @@ export interface ReviewPageProps {
     slug: string;
   };
 }
- 
 
-// get nextjs to generate static pages even when using dynamic routes 
+// get nextjs to generate static pages even when using dynamic routes
 export async function generateStaticParams() {
   const slugs = await getSlugs();
+  console.log("[SLUGS]", slugs);
   return slugs.map((slug) => ({ slug }));
 }
 
@@ -24,18 +24,26 @@ export default async function ReviewPage({
     <div>
       <HeadingComponent text={title} />
       <p className="italic pb-2">{date}</p>
-      <img
-        src={image}
-        alt="image for Hollow Knights"
-        width="640"
-        height="360"
-        className="mb-2 rounded-lg"
-      ></img>
+      {!image ? (
+        <img
+          src={image}
+          alt="image for Hollow Knights"
+          width="640"
+          height="360"
+          className="mb-2 rounded-lg"
+        ></img>
+      ) : (
+        <p>{image}</p>
+      )}
       <article
         dangerouslySetInnerHTML={{ __html: body }}
         className="mb-8 max-w-screen-sm prose prose-slate"
       ></article>
-      <Link href={"/"}>Home</Link>
+      {!title ? (
+        <Link href={"/"}>Home</Link>
+      ) : (
+        <Link href={"/reviews"}>Reviews</Link>
+      )}
     </div>
   );
 }
