@@ -9,6 +9,7 @@
     "test": "jest --coverage "
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "gray-matter": "^4.0.3",
     "marked": "^9.0.3",
     "next": "^13.4.19",
