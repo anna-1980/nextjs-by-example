@@ -1,7 +1,7 @@
 import Link from "next/link";
 import HeadingComponent from "@/components/heading-component/heading-component";
-import { getReview, getSlugs } from "@/lib/reviews";import Buttons from "@/components/buttons/buttons";
- 
+import { getReview, getSlugs } from "@/lib/reviews";
+import ShareBtn from "@/components/buttons/share-link-btn-component/share-link-btn-component";
 
 export interface ReviewPageProps {
   params: {
@@ -27,22 +27,20 @@ export default async function ReviewPage({
 }: ReviewPageProps) {
   const { title, date, image, body } = await getReview(slug);
 
-  let clicked
- const handleClick = () => {
-  navigator.clipboard.writeText(window.location.href);
-  // console.log("clicked")
-  clicked(true);
-  setTimeout(() => {
-  clicked(false) ;
-  }, 2000);
-};
+  const onClickFunction = `navigator.clipboard.writeText(window.location.href)`;
+  const helperFunction = `setTimeout(() => {
+        alert("BTN helper function");
+      }, 500)`;
 
   return (
     <div>
       <HeadingComponent text={title} />
       <div className="flex gap-3 items-baseline">
         <p className="italic pb-2 mr-4">{date}</p>
-        <Buttons />
+        <ShareBtn
+          onClickFunction={onClickFunction}
+          helperFunction={helperFunction}
+        />
       </div>
       {image ? (
         <img

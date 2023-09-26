@@ -1,34 +1,46 @@
 "use client";
 import { useState } from "react";
-import { LinkIcon } from '@heroicons/react/20/solid'
+import { LinkIcon } from "@heroicons/react/20/solid";
+
 
 export interface ShareBtnProps {
-  onClick?: () => void;
+  onClickFunction?: string;
+  helperFunction?: string;
 }
 
-export default function ShareBtn({ onClick }: ShareBtnProps) {
+export default function ShareBtn({ onClickFunction, helperFunction }: ShareBtnProps) {
   const [clicked, setClicked] = useState(false);
-  console.log("rendering with hydration", clicked);
+
+  const btnFunction1: () => void = new Function(
+    `${onClickFunction}`
+  ) as () => void;
+  const btnFunction2: () => void = new Function(
+    `${helperFunction}`
+  ) as () => void;
 
   const handleClick = () => {
-    navigator.clipboard.writeText(window.location.href);
-    // console.log("clicked")
+    onClickFunction ? btnFunction1() : null;
     setClicked(true);
+    helperFunction ? btnFunction2() : null;
     setTimeout(() => {
       setClicked(false);
-    }, 2000);
+    }
+    , 1000);
   };
-
+ 
   return (
     <div className="flex items-baseline">
       <button
-        onClick={handleClick}
+        onClick={() => handleClick()}
         className="flex gap-1 items-centerrounded border rounded border-slate-400 px-2  mb-3 py-2 text-slate-500 text-sm hover:shadow-xl hover:bg-orange-100"
       >
-      <LinkIcon className="h-5, w-5"/>
-      {clicked ?  <span className=" text-orange-500  ">Link copied to clipboard</span>  : "Share"}
+        <LinkIcon className="h-5, w-5" />
+        {clicked ? (
+          <span className=" text-orange-500  ">Link copied to clipboard</span>
+        ) : (
+          "Share"
+        )}
       </button>
-     
     </div>
   );
 }
