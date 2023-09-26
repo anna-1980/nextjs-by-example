@@ -9,7 +9,7 @@
  &__item{
    @apply my-2  ;
     a{
-       @apply  flex px-5 rounded-md text-sm md:text-base border-2 ;
+       @apply  flex px-2 rounded-md border-2 text-xs leading-6 sm:text-base sm:px-4  ;
         text-decoration: none;
         color: aliceblue;
  
@@ -17,8 +17,22 @@
     a:hover{
         color: rgb(7, 40, 51);
         background-color: aliceblue;
+        svg{
+         fill: rgb(7, 40, 51);
+        }
      }
+    
      
     }
  }
 
+ @media (max-width: 501px) {
+   // .list__item  {
+
+   //  a{
+   //     font-size: 1rem;
+       
+   //  background-color: blueviolet;
+   //  }
+   // }
+}
