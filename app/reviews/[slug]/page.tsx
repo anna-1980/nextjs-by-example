@@ -40,6 +40,7 @@ export default async function ReviewPage({
         <ShareBtn
           onClickFunction={onClickFunction}
           helperFunction={helperFunction}
+          setClick={true}
         />
       </div>
       {image ? (

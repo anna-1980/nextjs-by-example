@@ -6,9 +6,10 @@ import { LinkIcon } from "@heroicons/react/20/solid";
 export interface ShareBtnProps {
   onClickFunction?: string;
   helperFunction?: string;
+  setClick?: boolean;
 }
 
-export default function ShareBtn({ onClickFunction, helperFunction }: ShareBtnProps) {
+export default function ShareBtn({ onClickFunction, helperFunction, setClick }: ShareBtnProps) {
   const [clicked, setClicked] = useState(false);
 
   const btnFunction1: () => void = new Function(
@@ -17,10 +18,11 @@ export default function ShareBtn({ onClickFunction, helperFunction }: ShareBtnPr
   const btnFunction2: () => void = new Function(
     `${helperFunction}`
   ) as () => void;
+ 
 
   const handleClick = () => {
     onClickFunction ? btnFunction1() : null;
-    setClicked(true);
+    setClicked(setClick);
     helperFunction ? btnFunction2() : null;
     setTimeout(() => {
       setClicked(false);
