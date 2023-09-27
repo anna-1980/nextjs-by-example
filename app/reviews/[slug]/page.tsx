@@ -2,6 +2,7 @@ import Link from "next/link";
 import HeadingComponent from "@/components/heading-component/heading-component";
 import { getReview, getSlugs } from "@/lib/reviews";
 import Buttons from "@/components/buttons/share-link-btn-component/buttons";
+import ShareBtn from "@/components/buttons/share-link-btn-component/share-link-btn-component";
 
 export interface ReviewPageProps {
   params: {
@@ -10,10 +11,10 @@ export interface ReviewPageProps {
 }
 
 // get nextjs to generate static pages even when using dynamic routes - relevant for production
-// export async function generateStaticParams() {
-//   const slugs = await getSlugs();
-//   return slugs.map((slug) => ({ slug }));
-// }
+export async function generateStaticParams() {
+  const slugs = await getSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
 
 export async function generateMetadata({ params: { slug } }: ReviewPageProps) {
   const { title } = await getReview(slug);
@@ -28,7 +29,7 @@ export default async function ReviewPage({
   const { title, date, image, body } = await getReview(slug);
   const review = await getReview(slug);
 
-  console.log(["Review"], review);
+  // console.log(["Review"], review);
 
   const onClickFunction = `navigator.clipboard.writeText(window.location.href)`;
   const helperFunction = `setTimeout(() => {
@@ -40,7 +41,7 @@ export default async function ReviewPage({
       <HeadingComponent text={title} />
       <div className="flex gap-3 items-baseline">
         <p className="italic pb-2 mr-4">{date}</p>
-        <Buttons />
+        <ShareBtn onClickFunction={onClickFunction} />
       </div>
       {image ? (
         <img
