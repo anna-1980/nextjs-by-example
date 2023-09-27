@@ -2,34 +2,36 @@
 import { useState } from "react";
 import { LinkIcon } from "@heroicons/react/20/solid";
 
-
 export interface ShareBtnProps {
   onClickFunction?: any;
   helperFunction?: string;
   setClick?: boolean;
 }
 
-export default function ShareBtn({ onClickFunction, helperFunction, setClick }: ShareBtnProps) {
+export default function ShareBtn({
+  onClickFunction,
+  helperFunction,
+  setClick,
+}: ShareBtnProps) {
   const [clicked, setClicked] = useState(false);
 
-  // const btnFunction1: () => void = new Function(
-  //   `${onClickFunction}`
-  // ) as () => void;
+  const btnFunction1: () => void = new Function(
+    `${onClickFunction}`
+  ) as () => void;
   const btnFunction2: () => void = new Function(
     `${helperFunction}`
   ) as () => void;
- 
-  console.log(typeof(onClickFunction))
+
+  console.log(typeof onClickFunction);
   const handleClick = () => {
-    onClickFunction(); 
+    btnFunction1 ? btnFunction1() : null;
     setClicked(setClick);
     helperFunction ? btnFunction2() : null;
     setTimeout(() => {
       setClicked(false);
-    }
-    , 1000);
+    }, 1000);
   };
- 
+
   return (
     <div className="flex items-baseline">
       <button

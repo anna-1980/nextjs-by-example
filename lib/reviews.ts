@@ -21,54 +21,53 @@ export async function getFeaturedReview() {
   return reviews[0];
 }
 
-export async function getReview(slug: string): Promise<FullReview> {
+async function fetchReviews(parameters: Object) {
   const url =
-    "http://127.0.0.1:1337/api/posts?" +
-    qs.stringify(
-      {
-        filters: { uid: { $eq: slug } },
-        fields: ["uid", "title", "date", "content", "publishedAt", "content"],
-        populate: { image: { fields: ["url"] } },
-        sort: ["publishedAt:desc"],
-        pagination: { pageSize: 1, withCount: false },
-      },
-      { encodeValuesOnly: true }
-    );
-  console.log("getReview", url);
+    `${CMS_URL}/api/posts?` +
+    qs.stringify(parameters, { encodeValuesOnly: true });
+  console.log("[fetchReviews]", url);
   const response = await fetch(url);
-  const { data } = await response.json();
-  const { attributes } = data[0];
-  console.log("from server", data);
+  if (!response.ok)
+    throw new Error(`CMS returned: ${response.status}} for ${url}`);
+  return await response.json();
+}
+
+function toReviewConverter(item) {
+  const { attributes } = item;
   return {
     slug: attributes.uid,
     title: attributes.title,
     date: attributes.date,
     image: CMS_URL + attributes.image.data[0].attributes.url,
-    body: marked(attributes.content),
+  };
+}
+
+export async function getReview(slug: string): Promise<FullReview> {
+  const { data } = await fetchReviews({
+    filters: { uid: { $eq: slug } },
+    fields: ["uid", "title", "date", "content", "publishedAt", "content"],
+    populate: { image: { fields: ["url"] } },
+    sort: ["publishedAt:desc"],
+    pagination: { pageSize: 1, withCount: false },
+  });
+  const { attributes } = data[0];
+  console.log("from server", data);
+  const item = data[0]
+  return {
+    ...toReviewConverter(item),
+    body: marked(item.attributes.content),
   };
 }
 
 export async function getReviews(): Promise<Review[]> {
-  const url =
-    `${CMS_URL}/api/posts?` +
-    qs.stringify(
-      {
-        fields: ["uid", "title", "date", "publishedAt"],
-        populate: { image: { fields: ["url"] } },
-        sort: ["publishedAt:desc"],
-        pagination: { pageSize: 4 },
-      },
-      { encodeValuesOnly: true }
-    );
-  const response = await fetch(url);
-  const { data } = await response.json();
+  const { data } = await fetchReviews({
+    fields: ["uid", "title", "date", "publishedAt"],
+    populate: { image: { fields: ["url"] } },
+    sort: ["publishedAt:desc"],
+    pagination: { pageSize: 4 },
+  });
   console.log("from server", data[0].attributes.image.data[0].attributes.url);
-  return data.map(({ attributes }) => ({
-    slug: attributes.uid,
-    title: attributes.title,
-    date: attributes.date,
-    image: CMS_URL + attributes.image.data[0].attributes.url,
-  }));
+  return data.map(toReviewConverter);
 }
 
 export async function getSlugs(): Promise<string[]> {
