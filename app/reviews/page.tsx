@@ -9,10 +9,7 @@ export const metadata = {
 export default async function Reviews() {
   const reviews = await getReviews();
 
-  console.log(
-    ["Reviews"],
-    reviews.map((review) => review.title)
-  );
+
   return (
     <>
       <HeadingComponent text="Reviews" />
