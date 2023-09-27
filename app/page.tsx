@@ -21,10 +21,10 @@ export default async function Home() {
               <h2 className=" py-1 text-center font-semibold sm:text-left sm:px-2">
                 {review.title}
               </h2>
-              <article
-                dangerouslySetInnerHTML={{ __html: review.body }}
+              {/* <article
+                dangerouslySetInnerHTML={{__html: review.body }}
                 className=" px-2  max-w-screen-sm prose prose-slate"
-              ></article>
+              ></article> */}
             </div>
           </Link>
         )}

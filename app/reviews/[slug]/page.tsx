@@ -11,10 +11,10 @@ export interface ReviewPageProps {
 }
 
 // get nextjs to generate static pages even when using dynamic routes - relevant for production
-// export async function generateStaticParams() {
-//   const slugs = await getSlugs();
-//   return slugs.map((slug) => ({ slug }));
-// }
+export async function generateStaticParams() {
+  const slugs = await getSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
 
 export async function generateMetadata({ params: { slug } }: ReviewPageProps) {
   const { title } = await getReview(slug);
@@ -29,7 +29,7 @@ export default async function ReviewPage({
   const { title, date, image, body } = await getReview(slug);
   const review = await getReview(slug);
 
-  console.log(["Review"], review);
+  // console.log(["Review"], review);
 
   const onClickFunction = `navigator.clipboard.writeText(window.location.href)`;
   const helperFunction = `setTimeout(() => {
