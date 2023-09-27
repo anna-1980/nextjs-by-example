@@ -16,5 +16,5 @@ describe("Navigation", () => {
 test("renders a navigation bar with links", () => {
   render(<Navigation />);
   expect(screen.getByRole("link", { name: "About" })).toBeInTheDocument();
-  expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument();
+  expect(screen.getByRole("link", { name: "Indie Gamer" })).toBeInTheDocument();
 });

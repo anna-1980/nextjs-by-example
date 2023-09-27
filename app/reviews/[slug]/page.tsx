@@ -2,6 +2,7 @@ import Link from "next/link";
 import HeadingComponent from "@/components/heading-component/heading-component";
 import { getReview, getSlugs } from "@/lib/reviews";
 import ShareBtn from "@/components/buttons/share-link-btn-component/share-link-btn-component";
+import Buttons from "@/components/buttons/share-link-btn-component/buttons";
 
 export interface ReviewPageProps {
   params: {
@@ -37,11 +38,7 @@ export default async function ReviewPage({
       <HeadingComponent text={title} />
       <div className="flex gap-3 items-baseline">
         <p className="italic pb-2 mr-4">{date}</p>
-        <ShareBtn
-          onClickFunction={onClickFunction}
-          helperFunction={helperFunction}
-          setClick={true}
-        />
+ <Buttons />
       </div>
       {image ? (
         <img

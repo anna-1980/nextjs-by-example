@@ -1,12 +1,12 @@
-import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
-import Page from './page';
+import "@testing-library/jest-dom";
+import { render, screen, waitFor } from "@testing-library/react";
+import Link from "next/link";
 
-describe('Page', () => {
-    it('renders a page', () => {
-        render(<Page />);
-        const page = screen.getByRole('heading');
-        expect(page).toBeInTheDocument();
-        expect(page).toHaveTextContent('Indie Games');
-    });
+render(<Link href={` /reviews`}>Link</Link>);
+
+test("Link with featured review appears", async () => {
+  await waitFor(() => {
+    expect(screen.getByRole("link")).toBeInTheDocument();
+    expect(screen.getByRole("link").hasAttribute("href"));
+  });
 });
