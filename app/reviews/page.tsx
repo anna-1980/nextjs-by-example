@@ -9,7 +9,10 @@ export const metadata = {
 export default async function Reviews() {
   const reviews = await getReviews();
 
-  console.log(['Reviews'], reviews)
+  console.log(
+    ["Reviews"],
+    reviews.map((review) => review.title)
+  );
   return (
     <>
       <HeadingComponent text="Reviews" />
@@ -22,7 +25,6 @@ export default async function Reviews() {
               className="bg-white border w-80 shadow rounded-lg overflow-hidden hover:shadow-xl"
             >
               <Link href={` /reviews/${review.slug}`}>
-                {" "}
                 <img src={review.image} width="320" height="80"></img>
                 <h2 className="py-1 text-center font-semibold">
                   {review.title}
