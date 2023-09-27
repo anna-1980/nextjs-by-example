@@ -25,3 +25,6 @@ next-env.d.ts
 
 # production
 /build
+
+# scripts
+/scripts/strapi-response.json
