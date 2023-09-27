@@ -53,7 +53,7 @@ export default async function ReviewPage({
           className="mb-2 rounded-lg"
         ></Image>
       ) : (
-        <p>"no Image"</p>
+        <p>&quot; no Image &quot; </p>
       )}
       <article
         dangerouslySetInnerHTML={{ __html: body }}

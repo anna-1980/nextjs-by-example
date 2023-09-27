@@ -1,5 +1,3 @@
-import { readdir, readFile } from "node:fs/promises";
-import matter from "gray-matter";
 import { marked } from "marked";
 import qs from "qs";
 
@@ -8,10 +6,7 @@ export interface Review {
   date: string;
   image: string;
   slug: string;
-}
-
-export interface FullReview extends Review {
-  body: string;
+  body?: string;
 }
 
 interface CmsItem {
@@ -20,22 +15,6 @@ interface CmsItem {
 }
 
 const CMS_URL = "http://127.0.0.1:1337";
-
-export async function getFeaturedReview(): Promise<FullReview> {
-  const reviews = await fetchReviews({
-    fields: ["uid", "title", "date", "publishedAt", "content"],
-    populate: { image: { fields: ["url"] } },
-    sort: ["publishedAt:desc"],
-    pagination: { pageSize: 4 },
-  });
-  const { data } = reviews;
-  const item = data[0];
-  // console.log("[getFeaturedReview]", item);
-  return {
-    ...toReviewConverter(item),
-    body: marked(item.attributes.content),
-  };
-}
 
 async function fetchReviews(parameters: Object) {
   const url =
@@ -55,10 +34,11 @@ function toReviewConverter(item: CmsItem) {
     title: attributes.title,
     date: attributes.date,
     image: CMS_URL + attributes.image.data[0].attributes.url,
+    body: marked(attributes.content),
   };
 }
 
-export async function getReview(slug: string): Promise<FullReview> {
+export async function getReview(slug: string): Promise<Review> {
   const { data } = await fetchReviews({
     filters: { uid: { $eq: slug } },
     fields: ["uid", "title", "date", "content", "publishedAt", "content"],
@@ -75,12 +55,12 @@ export async function getReview(slug: string): Promise<FullReview> {
   };
 }
 
-export async function getReviews(): Promise<Review[]> {
+export async function getReviews(pageSize: number): Promise<Review[]> {
   const { data } = await fetchReviews({
-    fields: ["uid", "title", "date", "publishedAt"],
+    fields: ["uid", "title", "date", "publishedAt", "content"],
     populate: { image: { fields: ["url"] } },
     sort: ["publishedAt:desc"],
-    pagination: { pageSize: 4 },
+    pagination: { pageSize },
   });
   // console.log("from server", data[0].attributes.image.data[0].attributes.url);
   return data.map(toReviewConverter);
@@ -101,4 +81,20 @@ export async function getSlugs(): Promise<string[]> {
 //     .filter((file) => file.endsWith(".md"))
 //     .map((file) => file.slice(0, -".md".length));
 //   return slugs;
+// }
+
+// export async function getFeaturedReview(): Promise<FullReview> {
+//   const reviews = await fetchReviews({
+//     fields: ["uid", "title", "date", "publishedAt", "content"],
+//     populate: { image: { fields: ["url"] } },
+//     sort: ["publishedAt:desc"],
+//     pagination: { pageSize: 4 },
+//   });
+//   const { data } = reviews;
+//   const item = data[0];
+//   // console.log("[getFeaturedReview]", item);
+//   return {
+//     ...toReviewConverter(item),
+//     body: marked(item.attributes.content),
+//   };
 // }
