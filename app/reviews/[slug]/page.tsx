@@ -3,6 +3,7 @@ import HeadingComponent from "@/components/heading-component/heading-component";
 import { getReview, getSlugs } from "@/lib/reviews";
 import Buttons from "@/components/buttons/share-link-btn-component/buttons";
 import ShareBtn from "@/components/buttons/share-link-btn-component/share-link-btn-component";
+import Image from "next/image";
 
 export interface ReviewPageProps {
   params: {
@@ -44,15 +45,15 @@ export default async function ReviewPage({
         <ShareBtn onClickFunction={onClickFunction} />
       </div>
       {image ? (
-        <img
+        <Image
           src={image}
-          alt="image for Hollow Knights"
+          alt=""
           width="640"
           height="360"
           className="mb-2 rounded-lg"
-        ></img>
+        ></Image>
       ) : (
-        <p>"no Image"</p>
+        <p>&quot; no Image &quot; </p>
       )}
       <article
         dangerouslySetInnerHTML={{ __html: body }}
