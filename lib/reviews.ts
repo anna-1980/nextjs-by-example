@@ -11,6 +11,8 @@ export interface Review {
   slug: string;
 }
 
+const CMS_URL = "http://127.0.0.1:1337";
+
 export async function getFeaturedReview() {
   const reviews = await getReviews();
   return reviews[0];
@@ -42,21 +44,24 @@ export async function getReview(slug: string): Promise<Review> {
 
 export async function getReviews(): Promise<Review[]> {
   const url =
-    "http://127.0.0.1:1337/api/posts?" +
+    `${CMS_URL}/api/posts?` +
     qs.stringify(
       {
-        fields: ["uid", "title", "date", "content", "publishedAt"],
+        fields: ["uid", "title", "date", "publishedAt"],
         populate: { image: { fields: ["url"] } },
         sort: ["publishedAt:desc"],
-        pagination: { pageSize: 2 },
+        pagination: { pageSize: 4 },
       },
       { encodeValuesOnly: true }
     );
   const response = await fetch(url);
   const { data } = await response.json();
+  console.log("from server", data[0].attributes.image.data[0].attributes.url);
   return data.map(({ attributes }) => ({
     slug: attributes.uid,
     title: attributes.title,
+    date: attributes.date,
+    image: CMS_URL + attributes.image.data[0].attributes.url,
   }));
 }
 
