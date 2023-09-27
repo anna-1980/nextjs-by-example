@@ -15,8 +15,8 @@ export interface FullReview extends Review {
 }
 
 interface CmsItem {
-  id: number
-  attributes: any
+  id: number;
+  attributes: any;
 }
 
 const CMS_URL = "http://127.0.0.1:1337";
@@ -30,7 +30,7 @@ export async function getFeaturedReview(): Promise<FullReview> {
   });
   const { data } = reviews;
   const item = data[0];
-  console.log("[getFeaturedReview]", item);
+  // console.log("[getFeaturedReview]", item);
   return {
     ...toReviewConverter(item),
     body: marked(item.attributes.content),
@@ -92,7 +92,7 @@ export async function getSlugs(): Promise<string[]> {
     sort: ["publishedAt:desc"],
     pagination: { pageSize: 10 },
   });
-  return data.map((item: CmsItem ) => item.attributes.uid);
+  return data.map((item: CmsItem) => item.attributes.uid);
 }
 // export async function getSlugs(): Promise<string[]> {
 //   const files = await readdir("./content/reviews");
