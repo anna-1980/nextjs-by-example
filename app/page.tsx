@@ -31,7 +31,7 @@ export default async function Home() {
               </h2>
               <article
                 dangerouslySetInnerHTML={{ __html: review.body }}
-                className="hidden sm:block px-2  max-w-screen-sm prose prose-slate"
+                className="hidden /:block px-2  max-w-screen-sm prose prose-slate"
               ></article>
             </div>
           </Link>

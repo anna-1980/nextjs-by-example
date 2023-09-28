@@ -8,13 +8,13 @@ export const metadata = {
 };
 
 export default async function Reviews() {
-  const reviews = await getReviews(4);
+  const reviews = await getReviews(3);
 
   return (
-    <>
+    <div className="flex flex-col items-center">
       <HeadingComponent text="Reviews" />
       <p>Here are all game reviews available</p>
-      <ul className="flex flex-row flex-wrap  gap-3">
+      <ul className=" flex flex-row justify-evenly flex-wrap  gap-3">
         {reviews.map((review, index) => {
           return (
             <li
@@ -37,6 +37,6 @@ export default async function Reviews() {
           );
         })}
       </ul>
-    </>
+    </div>
   );
 }

@@ -38,9 +38,9 @@ export default async function ReviewPage({
       }, 500)`;
 
   return (
-    <div>
+    <div className="mx-auto max-w-lg ">
       <HeadingComponent text={title} />
-      <div className="flex gap-3 items-baseline">
+      <div className="flex justify-between  w-full items-center  ">
         <p className="italic pb-2 mr-4">{date}</p>
         <ShareBtn onClickFunction={onClickFunction} />
       </div>
@@ -48,8 +48,8 @@ export default async function ReviewPage({
         <Image
           src={image}
           alt=""
-          width="640"
-          height="360"
+          width="512"
+          height="512"
           className="mb-2 rounded-lg"
         ></Image>
       ) : (
@@ -57,7 +57,7 @@ export default async function ReviewPage({
       )}
       <article
         dangerouslySetInnerHTML={{ __html: body }}
-        className="mb-8 max-w-screen-sm prose prose-slate"
+        className="pl-2 mb-8 max-w-lg text-justify prose prose-slate"
       ></article>
       {!date ? (
         <Link href={"/reviews"}>Reviews</Link>
