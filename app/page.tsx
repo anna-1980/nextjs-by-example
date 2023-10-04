@@ -3,11 +3,13 @@ import HeadingComponent from "@/components/heading-component/heading-component";
 import { getReviews } from "@/lib/reviews";
 import Image from "next/image";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
+
+export const revalidate = 30; //in seconds, every page older in 30sec will be revalidated, in production is enough to set say 3-5 min (180-300sec)
 
 export default async function Home() {
   const [review] = await getReviews(4);
-  console.log(["Review <<<<"], review);
+  console.log(["Review Homepage <<<<"], review.slug);
   return (
     <div>
       <HeadingComponent text="Indie Games"></HeadingComponent>

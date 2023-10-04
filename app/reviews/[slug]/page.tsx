@@ -13,13 +13,13 @@ export interface ReviewPageProps {
 }
 
 // generate static paths for dynamic routes
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
-// get nextjs to generate static pages even when using dynamic routes - relevant for production
-// export async function generateStaticParams() {
-//   const slugs = await getSlugs();
-//   return slugs.map((slug) => ({ slug }));
-// }
+// (static generation) get nextjs to generate static pages even when using dynamic routes - relevant for production
+export async function generateStaticParams() {
+  const slugs = await getSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
 
 export async function generateMetadata({ params: { slug } }: ReviewPageProps) {
   const review = await getReview(slug);
