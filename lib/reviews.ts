@@ -14,14 +14,23 @@ interface CmsItem {
   attributes: any;
 }
 
+export const CACHE_TAG_REVIEWS = "post";
+
 const CMS_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 console.log("[ENV]", process.env.NEXT_PUBLIC_STRAPI_API_URL);
+
 async function fetchReviews(parameters: Object) {
   const url =
     `${CMS_URL}/api/posts?` +
     qs.stringify(parameters, { encodeValuesOnly: true });
   // console.log("[fetchReviews]", url);
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    // cache: "no-store", // disable cache, all pages become dynamic, cause server regenerages all pages
+    next: {
+      // revalidate: 60  // revalidate every 60 seconds on server side
+      tags: [CACHE_TAG_REVIEWS], // to identify one or more fetch requests, the tag will be applied to getRewiew and getReview
+    },
+  });
   if (!response.ok)
     throw new Error(`CMS returned: ${response.status}} for ${url}`);
   return await response.json();
@@ -43,9 +52,10 @@ export async function getReview(slug: string): Promise<Review> {
     filters: { uid: { $eq: slug } },
     fields: ["uid", "title", "date", "content", "publishedAt", "content"],
     populate: { image: { fields: ["url"] } },
-    sort: ["publishedAt:desc"],
+    sort: ["publishedAt:asc"],
     pagination: { pageSize: 1, withCount: false },
   });
+  if (data.length === 0) return null;
   const { attributes } = data[0];
   // console.log("from server", data);
   const item = data[0];
@@ -70,7 +80,7 @@ export async function getSlugs(): Promise<string[]> {
   const { data } = await fetchReviews({
     firlds: ["uid"],
     sort: ["publishedAt:desc"],
-    pagination: { pageSize: 10 },
+    pagination: { pageSize: 3 },
   });
   return data.map((item: CmsItem) => item.attributes.uid);
 }

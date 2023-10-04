@@ -7,8 +7,11 @@ export const metadata = {
   title: "Reviews",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function Reviews() {
   const reviews = await getReviews(3);
+  console.log("[Reviews Page]", reviews.map((review) => review.slug).join(","));
 
   return (
     <div className="flex flex-col items-center">
