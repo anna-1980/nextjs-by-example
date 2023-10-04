@@ -4,6 +4,7 @@ import { getReview, getSlugs } from "@/lib/reviews";
 import Buttons from "@/components/buttons/share-link-btn-component/buttons";
 import ShareBtn from "@/components/buttons/share-link-btn-component/share-link-btn-component";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 export interface ReviewPageProps {
   params: {
@@ -11,16 +12,22 @@ export interface ReviewPageProps {
   };
 }
 
+// generate static paths for dynamic routes
+export const dynamic = "force-dynamic";
+
 // get nextjs to generate static pages even when using dynamic routes - relevant for production
-export async function generateStaticParams() {
-  const slugs = await getSlugs();
-  return slugs.map((slug) => ({ slug }));
-}
+// export async function generateStaticParams() {
+//   const slugs = await getSlugs();
+//   return slugs.map((slug) => ({ slug }));
+// }
 
 export async function generateMetadata({ params: { slug } }: ReviewPageProps) {
-  const { title } = await getReview(slug);
+  const review = await getReview(slug);
+  if (!review) {
+    notFound();
+  }
   return {
-    title: title,
+    title: review.title,
   };
 }
 
@@ -29,7 +36,9 @@ export default async function ReviewPage({
 }: ReviewPageProps) {
   const { title, date, image, body } = await getReview(slug);
   const review = await getReview(slug);
-
+  if (!title) {
+    notFound();
+  }
   // console.log(["Review"], review);
 
   const onClickFunction = `navigator.clipboard.writeText(window.location.href)`;

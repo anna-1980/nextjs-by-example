@@ -3,9 +3,11 @@ import HeadingComponent from "@/components/heading-component/heading-component";
 import { getReviews } from "@/lib/reviews";
 import Image from "next/image";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
-  const [review] = await getReviews(1);
-  console.log(["Review <<<<"], review.title);
+  const [review] = await getReviews(4);
+  console.log(["Review <<<<"], review);
   return (
     <div>
       <HeadingComponent text="Indie Games"></HeadingComponent>

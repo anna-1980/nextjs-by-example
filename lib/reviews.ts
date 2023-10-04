@@ -43,9 +43,10 @@ export async function getReview(slug: string): Promise<Review> {
     filters: { uid: { $eq: slug } },
     fields: ["uid", "title", "date", "content", "publishedAt", "content"],
     populate: { image: { fields: ["url"] } },
-    sort: ["publishedAt:desc"],
+    sort: ["publishedAt:asc"],
     pagination: { pageSize: 1, withCount: false },
   });
+  if (data.length === 0) return null;
   const { attributes } = data[0];
   // console.log("from server", data);
   const item = data[0];
@@ -70,7 +71,7 @@ export async function getSlugs(): Promise<string[]> {
   const { data } = await fetchReviews({
     firlds: ["uid"],
     sort: ["publishedAt:desc"],
-    pagination: { pageSize: 10 },
+    pagination: { pageSize: 3 },
   });
   return data.map((item: CmsItem) => item.attributes.uid);
 }
