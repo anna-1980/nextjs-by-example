@@ -6,7 +6,7 @@ export default function Header(): JSX.Element {
     <header>
       <div className="flex-row">
         <NavComponent />
-        <h2 className="  bg-green-700 text-orange-50 px-2 hover:bg-sky-950 cursor-grab ">
+        <h2 className="bg-amber-600 text-orange-50 px-2 hover:bg-sky-950 cursor-grab ">
           Brand Name
         </h2>
       </div>

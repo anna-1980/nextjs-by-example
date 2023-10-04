@@ -14,8 +14,8 @@ interface CmsItem {
   attributes: any;
 }
 
-const CMS_URL = "http://127.0.0.1:1337";
-
+const CMS_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+console.log("[ENV]", process.env.NEXT_PUBLIC_STRAPI_API_URL);
 async function fetchReviews(parameters: Object) {
   const url =
     `${CMS_URL}/api/posts?` +
