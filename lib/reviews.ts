@@ -14,6 +14,8 @@ interface CmsItem {
   attributes: any;
 }
 
+export const CACHE_TAG_REVIEWS = "post";
+
 const CMS_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 console.log("[ENV]", process.env.NEXT_PUBLIC_STRAPI_API_URL);
 
@@ -24,9 +26,10 @@ async function fetchReviews(parameters: Object) {
   // console.log("[fetchReviews]", url);
   const response = await fetch(url, {
     // cache: "no-store", // disable cache, all pages become dynamic, cause server regenerages all pages
-    next:{
-      revalidate: 60  // revalidate every 60 seconds on server side
-    }
+    next: {
+      // revalidate: 60  // revalidate every 60 seconds on server side
+      tags: [CACHE_TAG_REVIEWS], // to identify one or more fetch requests, the tag will be applied to getRewiew and getReview
+    },
   });
   if (!response.ok)
     throw new Error(`CMS returned: ${response.status}} for ${url}`);
